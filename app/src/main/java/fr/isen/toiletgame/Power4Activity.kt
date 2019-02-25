@@ -7,6 +7,8 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_power4.*
 
 
+
+
 class Power4Activity : AppCompatActivity() {
 
     var power4 =
@@ -31,8 +33,12 @@ class Power4Activity : AppCompatActivity() {
 
         for(i in 0..6){
             for(j in 0..5){
-                var id = "R.id.image" + i.toString() + j.toString()
-                var image = findViewById<ImageView>(id.toInt())
+                var id = "image" + i.toString() + j.toString()
+                val res = R.drawable::class.java
+                val field = res.getField(id)
+                val drawableId = field.getInt(null)
+                var image = findViewById<ImageView>(drawableId)
+
                 image.setOnClickListener {
                     if (joueur) {//Si c'est au joueur
                         onPlay(i, RED)
@@ -51,6 +57,7 @@ class Power4Activity : AppCompatActivity() {
         if (ligne != null){
             addToken(column, ligne, token)
             joueur = !joueur//Ce n'est plus au joueur
+
             onPlayIA()
 
         }else{
@@ -81,12 +88,38 @@ class Power4Activity : AppCompatActivity() {
 
     }
 
+    private fun checkWin(column: Int,ligne: Int){
+        var minC = column-3
+        var maxC = column+3
+        if(minC < 0){
+            minC=0
+        }
+        if(maxC > 6){
+            maxC=6
+        }
+        var minL = ligne-3
+        var maxL = ligne+3
+        if(minL < 0){
+            minL=0
+        }
+        if(maxL > 6){
+            maxL=6
+        }
+        for(i in minC..maxC){
+
+        }
+    }
+
     private fun addToken(column: Int, ligne: Int,color: Int){
         var id = "R.id.image" + column.toString() + ligne.toString()
-        var image = findViewById<ImageView>(id.toInt())
+        val res = R.drawable::class.java
+        val field = res.getField(id)
+        val drawableId = field.getInt(null)
+        var image = findViewById<ImageView>(drawableId)
+
         if(color == VOID){
-            val res = resources.getIdentifier("R.drawable.vide","drawable",packageName)
-            image.setImageResource(res)
+            val resD = resources.getIdentifier("R.drawable.vide","drawable",packageName)
+            image.setImageResource(resD)
         }
         if(color == RED){
             val res = resources.getIdentifier("R.drawable.red","drawable",packageName)
@@ -97,5 +130,7 @@ class Power4Activity : AppCompatActivity() {
             image.setImageResource(res)
         }
         power4[column][ligne] = color
+
+        //checkWin(column,ligne)
     }
 }
