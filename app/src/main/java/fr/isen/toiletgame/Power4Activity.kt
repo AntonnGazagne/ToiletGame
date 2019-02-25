@@ -51,6 +51,7 @@ class Power4Activity : AppCompatActivity() {
         if (ligne != null){
             addToken(column, ligne, token)
             joueur = !joueur//Ce n'est plus au joueur
+            onPlayIA()
 
         }else{
             Toast.makeText(this, "La colomne est pleine", Toast.LENGTH_LONG).show()
@@ -75,11 +76,26 @@ class Power4Activity : AppCompatActivity() {
         }
         return null
     }
-    private fun addToken(column: Int, ligne: Int,color: Int){
+
+    private fun onPlayIA(){
 
     }
 
-    private fun setCurseur(){
-
+    private fun addToken(column: Int, ligne: Int,color: Int){
+        var id = "R.id.image" + column.toString() + ligne.toString()
+        var image = findViewById<ImageView>(id.toInt())
+        if(color == VOID){
+            val res = resources.getIdentifier("R.drawable.vide","drawable",packageName)
+            image.setImageResource(res)
+        }
+        if(color == RED){
+            val res = resources.getIdentifier("R.drawable.red","drawable",packageName)
+            image.setImageResource(res)
+        }
+        if(color == YELLOW){
+            val res = resources.getIdentifier("R.drawable.yellow","drawable",packageName)
+            image.setImageResource(res)
+        }
+        power4[column][ligne] = color
     }
 }
