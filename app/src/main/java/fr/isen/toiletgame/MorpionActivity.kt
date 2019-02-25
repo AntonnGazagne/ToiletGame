@@ -3,6 +3,7 @@ package fr.isen.toiletgame
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 
 class MorpionActivity : AppCompatActivity() {
 
@@ -12,7 +13,5 @@ class MorpionActivity : AppCompatActivity() {
     }
 }
 
-fun lancementPartie (plateau:ArrayList<Button>){
 
-    //buttonRelance.isEnabled = false
-}
+
