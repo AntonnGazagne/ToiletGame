@@ -6,9 +6,12 @@ import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_pendu.*
 
-class PenduActivity : AppCompatActivity() {
+abstract class PenduActivity : AppCompatActivity() {
 
-    val listOfLetters: MutableList<Char>? = null
+    private var win: Boolean = false
+    private var error: Int = 0
+    private var found: Int = 0
+    private val mot: String = "ORDINATEUR"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,17 +23,14 @@ class PenduActivity : AppCompatActivity() {
 
     }
 
-    fun initGame() {
-        val word = "ordinateur"
-        var win = false
-        val error = 0
-        val found = 0
-        tv_lettres_tapees.setText("")
+    private fun initGame() {
+        //mot = "ORDINATEUR"
+        tv_lettres_tapees.text = ""
         iv_pendu.setBackgroundResource(R.drawable.first)
 
         word_container.removeAllViews()
 
-        for (lettre in word) {
+        for (lettre in mot) {
             var oneLetter = layoutInflater.inflate(R.layout.textview, null) as TextView?
             word_container.addView(oneLetter)
         }
@@ -38,21 +38,28 @@ class PenduActivity : AppCompatActivity() {
     }
 
     fun envoiLettre() {
-        val lettreFromInput = et_letter.text.toString().toUpperCase()
-        et_letter.setText("")
+        var lettreFromInput: String = et_letter.text.toString().toUpperCase()
+        et_letter.text.clear()
 
         if (lettreFromInput.isNotEmpty()) {
-            //if (!lettreDejaUtilisee(lettreFromInput.get(0), listOfLetters))
+            var listOfLetters = CharArray(mot.length)
+            if (!listOfLetters.contains(lettreFromInput.get(0))) {
+                listOfLetters.plus(lettreFromInput.get(0))
+                VerifieLettreDansMot(lettreFromInput, mot)
+            }
+            else {
+                Toast.makeText(this, "Vous avez déjà entré cette lettre", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
-    fun lettreDejaUtilisee(a: Char, listOfLetters: MutableList<Char>): Boolean {
-        for (lettre in listOfLetters) {
-            if (listOfLetters.get(lettre.toInt()) == a) {
-                Toast.makeText(this, "Vous avez déjà entré cette lettre", Toast.LENGTH_SHORT).show()
-                return true
+    fun VerifieLettreDansMot(lettre: String, mot: String) {
+        for (letter in mot) {
+            if (letter == lettre.get(0)) {
+                var tv = word_container.getChildAt(letter.toInt()) as TextView?
+                tv?.text = letter.toString()
+                found++
             }
         }
-        return false
     }
 }
