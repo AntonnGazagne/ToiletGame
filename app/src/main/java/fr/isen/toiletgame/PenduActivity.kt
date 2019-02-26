@@ -1,10 +1,11 @@
 package fr.isen.toiletgame
 
 import android.app.AlertDialog
-import android.content.Intent
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_pendu.*
@@ -33,7 +34,7 @@ class PenduActivity : AppCompatActivity(), View.OnClickListener {
             alertDialog.setMessage("L'objectif du jeu est de découvrir un mot en devinant les lettres le composant. À chaque tour, le joueur choisit une lettre de l'alphabet qu'il estime pouvant faire partie du mot à deviner. Si le mot contient cette lettre, celle-ci sera montrée et placée à sa/ses position(s) dans la composition du mot. Sinon, un croquis représentant un corps humain sera peu à peu formé. Lorsque les 6 parties de ce croquis sont terminées, le joueur a perdu.")
             alertDialog.setNeutralButton("Ok"){_,_ -> }
             alertDialog.create().show()
-
+            regles.hideKeyboard()
         }
         btn_send.setOnClickListener(this)
 
@@ -140,10 +141,11 @@ class PenduActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         builder.setNeutralButton("Menu"){_,_ ->
-            startActivity(Intent(this@PenduActivity, MainActivity::class.java))
+            finish()
         }
 
         builder.create().show()
+        tv_lettres_tapees.hideKeyboard()
     }
 
     fun getListeMots(): ArrayList<String> {
@@ -168,4 +170,14 @@ class PenduActivity : AppCompatActivity(), View.OnClickListener {
         val mot = listofWords.get(random.toInt()).trim()
         return mot
     }
+
+    override fun onBackPressed() {
+        finish()
+    }
+
+    fun View.hideKeyboard() {
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(windowToken, 0)
+    }
+
 }
