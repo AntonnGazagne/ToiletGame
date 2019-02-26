@@ -3,4 +3,5 @@
     <string name="Puissance4">Puissance 4</string>
     <string name="nouvellePartie">Nouvelle partie</string>
     <string name="send">Envoyer</string>
+    <string name="rejouer">Rejouer</string>
 </resources>
