@@ -13,7 +13,8 @@
             android:id="@+id/column6" app:layout_constraintVertical_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/column5"
             app:layout_constraintEnd_toEndOf="@+id/tableDeJeu"
-            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/tableDeJeu"/>
+            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/tableDeJeu"
+            android:layout_marginStart="1dp"/>
     <ListView
             android:layout_width="54dp"
             android:layout_height="0dp"
@@ -27,28 +28,45 @@
             app:layout_constraintBottom_toBottomOf="@+id/tableDeJeu"
             app:layout_constraintTop_toTopOf="@+id/tableDeJeu"
             android:id="@+id/column0" app:layout_constraintStart_toStartOf="@+id/tableDeJeu"
-            android:layout_marginStart="8dp"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintEnd_toStartOf="@+id/column1" android:layout_marginBottom="16dp"
-            android:layout_marginTop="8dp">
-        <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" app:srcCompat="@drawable/redpawn" android:id="@+id/imageView59"/>
-    </ListView>
+            app:layout_constraintEnd_toStartOf="@+id/column1"
+            android:layout_marginStart="6dp" android:layout_marginTop="8dp"/>
     <ListView
             android:layout_width="54dp"
             android:layout_height="0dp"
             app:layout_constraintTop_toTopOf="@+id/column0" app:layout_constraintBottom_toBottomOf="@+id/column0"
             android:id="@+id/column3" app:layout_constraintVertical_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/column2" app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintEnd_toStartOf="@+id/column4"/>
+            app:layout_constraintEnd_toStartOf="@+id/column4" android:layout_marginStart="1dp"/>
     <ListView
             android:layout_width="54dp"
             android:layout_height="0dp"
             app:layout_constraintTop_toTopOf="@+id/column0" app:layout_constraintBottom_toBottomOf="@+id/column0"
             android:id="@+id/column2" app:layout_constraintVertical_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/column1" app:layout_constraintEnd_toStartOf="@+id/column3"
-            app:layout_constraintHorizontal_bias="0.5"/>
+            app:layout_constraintHorizontal_bias="0.5" android:layout_marginStart="1dp"/>
+    <ListView
+            android:layout_width="54dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@+id/column0" app:layout_constraintBottom_toBottomOf="@+id/column0"
+            android:id="@+id/column1" app:layout_constraintStart_toEndOf="@+id/column0"
+            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/column2"
+            android:layout_marginStart="1dp"/>
+    <ListView
+            android:layout_width="54dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@+id/column0" app:layout_constraintBottom_toBottomOf="@+id/column0"
+            android:id="@+id/column5" app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/column4" app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/column6" android:layout_marginStart="1dp"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/nouvellePartieIA" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
+            android:text="@string/nouvellePartie"
+            android:layout_marginBottom="23dp" app:layout_constraintBottom_toTopOf="@+id/nouvellePartieJoueur"/>
     <TextView
             android:text="@string/Puissance4"
             android:layout_width="wrap_content"
@@ -57,33 +75,20 @@
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"/>
-    <ListView
-            android:layout_width="54dp"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="@+id/column0" app:layout_constraintBottom_toBottomOf="@+id/column0"
-            android:id="@+id/column5" app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/column4" app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintEnd_toStartOf="@+id/column6"/>
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/nouvellePartie" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" android:layout_marginBottom="32dp"
-            app:layout_constraintBottom_toBottomOf="parent" android:text="@string/nouvellePartie"
-    />
     <ImageView
             android:layout_width="0dp"
             android:layout_height="351dp" app:srcCompat="@drawable/puissance4"
             android:id="@+id/tableDeJeu"
             app:layout_constraintTop_toBottomOf="@+id/titre"
-            app:layout_constraintVertical_bias="0.32" app:layout_constraintBottom_toTopOf="@+id/nouvellePartie"
+            app:layout_constraintVertical_bias="0.32" app:layout_constraintBottom_toTopOf="@+id/nouvellePartieIA"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="8dp" android:layout_marginEnd="8dp" android:visibility="visible"/>
-    <ListView
-            android:layout_width="54dp"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="@+id/column0" app:layout_constraintBottom_toBottomOf="@+id/column0"
-            android:id="@+id/column1" app:layout_constraintStart_toEndOf="@+id/column0"
-            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/column2"/>
+    <Button
+            android:text="@string/nouvellePartieJ"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/nouvellePartieJoueur" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            android:layout_marginBottom="74dp" app:layout_constraintBottom_toBottomOf="parent"/>
 </android.support.constraint.ConstraintLayout>

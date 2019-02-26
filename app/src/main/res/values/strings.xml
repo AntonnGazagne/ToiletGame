@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">ToiletGame</string>
     <string name="Puissance4">Puissance 4</string>
-    <string name="nouvellePartie">Nouvelle partie</string>
+    <string name="nouvellePartie">Nouvelle partie IA</string>
+    <string name="nouvellePartieJ">Nouvelle partie 1V1</string>
     <string name="send">Envoyer</string>
 </resources>
