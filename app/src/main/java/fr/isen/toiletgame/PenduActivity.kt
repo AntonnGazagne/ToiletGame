@@ -5,54 +5,90 @@ import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_pendu.*
+import java.io.CharArrayWriter
 
-class PenduActivity : AppCompatActivity() {
+abstract class PenduActivity : AppCompatActivity() {
 
-    val listOfLetters: MutableList<Char>? = null
+    private var win: Boolean = false
+    private var error: Int = 0
+    private var found: Int = 0
+    private var mot: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pendu)
 
         initGame()
-
         btn_send.setOnClickListener { envoiLettre() }
 
     }
 
-    fun initGame() {
-        val word = "ordinateur"
-        var win = false
-        val error = 0
-        val found = 0
-        tv_lettres_tapees.setText("")
+    private fun initGame() {
+        mot = "ORDINATEUR"
+        tv_lettres_tapees.text = ""
         iv_pendu.setBackgroundResource(R.drawable.first)
 
         word_container.removeAllViews()
 
-        for (lettre in word) {
-            var oneLetter = layoutInflater.inflate(R.layout.textview, null) as TextView?
+        for (lettre in mot) {
+            val oneLetter = layoutInflater.inflate(R.layout.textview, null) as TextView?
             word_container.addView(oneLetter)
         }
 
     }
 
     fun envoiLettre() {
-        val lettreFromInput = et_letter.text.toString().toUpperCase()
-        et_letter.setText("")
+        var lettreFromInput: String = et_letter.text.toString().toUpperCase()
+        et_letter.text.clear()
 
         if (lettreFromInput.isNotEmpty()) {
-            //if (!lettreDejaUtilisee(lettreFromInput.get(0), listOfLetters))
+            var listOfLetters = CharArrayWriter()
+            if (!listOfLetters.toCharArray().contains(lettreFromInput.get(0))) {
+                listOfLetters.append(lettreFromInput)
+                verifieLettreDansMot(lettreFromInput, mot)
+            }
+            else {
+                Toast.makeText(this, "Vous avez déjà entré cette lettre", Toast.LENGTH_SHORT).show()
+            }
+
+            // Partie gagné
+            if (found == mot.length) {
+                win = true
+                Toast.makeText(this, "Victoire !", Toast.LENGTH_LONG).show()
+            }
+
+            // La lettre n'est pas dans le mot
+            if (!mot.contains(lettreFromInput)) {
+                error++
+            }
+            if (error == 6) {
+                win = false
+                Toast.makeText(this, "Perdu !", Toast.LENGTH_LONG).show()
+            }
+
+            //Affichage des lettres tapées
+            afficheLettres(listOfLetters)
         }
     }
 
-    fun lettreDejaUtilisee(a: Char, listOfLetters: MutableList<Char>): Boolean {
-        for (lettre in listOfLetters) {
-            if (listOfLetters.get(lettre.toInt()) == a) {
-                Toast.makeText(this, "Vous avez déjà entré cette lettre", Toast.LENGTH_SHORT).show()
-                return true
+    open fun verifieLettreDansMot(lettre: String, mot: String) {
+        for (letter in mot) {
+            if (letter == lettre.get(0)) {
+                var tv = word_container.getChildAt(letter.toInt()) as TextView?
+                tv?.text = letter.toString()
+                found++
             }
         }
-        return false
+    }
+
+    open fun afficheLettres(listofletters: CharArrayWriter) {
+        val chaine: String = ""
+        val result: String = ""
+        listofletters.write(chaine)
+        for (lettre in chaine) {
+            result.plus(lettre + "\n")
+        }
+        tv_lettres_tapees.text = result
+
     }
 }
