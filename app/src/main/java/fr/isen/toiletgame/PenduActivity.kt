@@ -1,6 +1,7 @@
 package fr.isen.toiletgame
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -136,6 +137,10 @@ class PenduActivity : AppCompatActivity(), View.OnClickListener {
         }
         builder.setPositiveButton(resources.getString(R.string.rejouer)) { _,_ ->
             initGame()
+        }
+
+        builder.setNeutralButton("Menu"){_,_ ->
+            startActivity(Intent(this@PenduActivity, MainActivity::class.java))
         }
 
         builder.create().show()
