@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_power4.*
 import android.widget.AdapterView.OnItemClickListener
+import android.widget.ListView
 import kotlin.math.max
 import kotlin.math.min
 
@@ -28,7 +29,7 @@ class Power4Activity : AppCompatActivity() {
 
 
     //Si il y a l'IA
-    private var IA = true
+    private var ia = true
     //Si il y a 2 joueurs, Alterne entre RED et YELLOW
     private var joueurActuelle = RED
     //Empêche de jouer si true
@@ -36,6 +37,7 @@ class Power4Activity : AppCompatActivity() {
 
     //Pour gérer les listViews
     private val adapters = ArrayList<MyAdapter>()
+    private val columns = ArrayList<ListView>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,54 +51,33 @@ class Power4Activity : AppCompatActivity() {
         adapters.add(MyAdapter(this, power4[4]))
         adapters.add(MyAdapter(this, power4[5]))
         adapters.add(MyAdapter(this, power4[6]))
-
-
-        //setOnClickListener pour chaque listView
-        column0.adapter = adapters[0]
-        column0.onItemClickListener = OnItemClickListener { _, _, _, _ ->
-            onPlay(0)
-        }
-
-        column1.adapter = adapters[1]
-        column1.onItemClickListener = OnItemClickListener { _, _, _, _ ->
-            onPlay(1)
-        }
-        
-        column2.adapter = adapters[2]
-        column2.onItemClickListener = OnItemClickListener { _, _, _, _ ->
-            onPlay(2)
-        }
-
-        column3.adapter = adapters[3]
-        column3.onItemClickListener = OnItemClickListener { _, _, _, _ ->
-            onPlay(3)
-        }
-
-        column4.adapter = adapters[4]
-        column4.onItemClickListener = OnItemClickListener { _, _, _, _ ->
-            onPlay(4)
-        }
-
-        column5.adapter = adapters[5]
-        column5.onItemClickListener = OnItemClickListener { _, _, _, _ ->
-            onPlay(5)
-        }
-
-
-        column6.adapter = adapters[6]
-        column6.onItemClickListener = OnItemClickListener { _, _, _, _ ->
-            onPlay(6)
+        //Liste de chaque listView
+        columns.add(column0)
+        columns.add(column1)
+        columns.add(column2)
+        columns.add(column3)
+        columns.add(column4)
+        columns.add(column5)
+        columns.add(column6)
+        //On met un adapter sur chaque ListView
+        for (i in 0..6){
+            columns[i].adapter = adapters[i]
+            columns[i].onItemClickListener = OnItemClickListener{ _, _, _, _ ->
+                onPlay(i)
+            }
         }
 
         //Lorsque l'on clique sur le bouton nouvelle partie avec IA
         nouvellePartieIA.setOnClickListener{
-            IA = true
+            ia = true
+            titre.setText(R.string.Puissance4_IA)
             onNewGame()
         }
 
         //Lorsque l'on clique sur le bouton nouvelle partie avec un autre joueur
         nouvellePartieJoueur.setOnClickListener{
-            IA = false
+            ia = false
+            titre.setText(R.string.Puissance4_1V1)
             onNewGame()
         }
     }
@@ -111,14 +92,16 @@ class Power4Activity : AppCompatActivity() {
 
 
             if (!checkWin(column,ligne)){//Si cela n'entraine pas la victoire
-                if(IA){//Si la partie est face à l'IA
+                if(ia){//Si la partie est face à l'IA
                     onPlayIA()//On fait joueur l'IA
                 }else{//Si la partie est face à un autre joueur
                     //On échange de joueur
                     if(joueurActuelle == RED){
                         joueurActuelle = YELLOW
+                        Joueur.setText(R.string.JoueurJaune)
                     }else{
                         joueurActuelle = RED
+                        Joueur.setText(R.string.JoueurRouge)
                     }
                 }
                 if(checkWhereItIsPossibleToPlay().isEmpty()){//Si le terrain de jeu est plein

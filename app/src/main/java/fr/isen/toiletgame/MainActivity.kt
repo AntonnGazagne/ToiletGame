@@ -27,11 +27,20 @@ class MainActivity : AppCompatActivity() {
             goMorpion()
         }
 
+        tetris.setOnClickListener {
+            goTetris()
+        }
+
 
     }
 
     private fun goPower(){
         val intent = Intent(this@MainActivity, Power4Activity::class.java )
+        startActivity(intent)
+    }
+
+    private fun goTetris(){
+        val intent = Intent(this@MainActivity, TetrisActivity::class.java )
         startActivity(intent)
     }
 
