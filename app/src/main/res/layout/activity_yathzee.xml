@@ -7,40 +7,43 @@
         android:layout_height="match_parent"
         tools:context=".YathzeeActivity">
     <TableLayout
-            android:layout_width="395dp"
-            android:layout_height="217dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            android:background="@drawable/border" android:layout_marginTop="32dp"
-            app:layout_constraintTop_toBottomOf="@+id/rulesButton">
+            android:background="@drawable/border" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/rulesButton" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.19999999">
         <TableRow
                 android:layout_width="171dp"
                 android:layout_height="77dp">
             <TextView
                     android:text="Total de 1"
                     android:layout_width="89dp"
-                    android:layout_height="wrap_content" android:id="@+id/sum1View" android:textSize="18sp"
+                    android:layout_height="match_parent" android:id="@+id/sum1View" android:textSize="24sp"
                     android:textColor="@color/colorAccent" android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border" android:textAlignment="center"/>
+                    android:background="@drawable/border" android:textAlignment="center"
+                    android:fontFamily="@font/permanent_marker"/>
             <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/sum1ScoreView" android:textSize="18sp"
-                    android:textColor="@color/colorAccent" android:textAlignment="center"
+                    android:layout_height="wrap_content" android:id="@+id/sum1ScoreView" android:textSize="24sp"
+                    android:textColor="@color/red" android:textAlignment="center"
                     android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border"/>
+                    android:background="@drawable/border" android:text="0" android:fontFamily="@font/permanent_marker"/>
             <TextView
                     android:text="Brelan"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/brelanView" android:textSize="18sp"
+                    android:layout_height="wrap_content" android:id="@+id/brelanView" android:textSize="24sp"
                     android:textColor="@color/colorAccent" android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border" android:textAlignment="center"/>
+                    android:background="@drawable/border" android:textAlignment="center"
+                    android:fontFamily="@font/permanent_marker"/>
             <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent" android:id="@+id/brelanScoreView" android:textSize="18sp"
-                    android:textColor="@color/colorAccent" android:textAlignment="center"
+                    android:layout_height="match_parent" android:id="@+id/brelanScoreView" android:textSize="24sp"
+                    android:textColor="@color/red" android:textAlignment="center"
                     android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border"/>
+                    android:background="@drawable/border" android:text="0" android:fontFamily="@font/permanent_marker"/>
         </TableRow>
         <TableRow
                 android:layout_width="match_parent"
@@ -48,28 +51,30 @@
             <TextView
                     android:text="Total de 2"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/sum2View" android:textSize="18sp"
+                    android:layout_height="wrap_content" android:id="@+id/sum2View" android:textSize="24sp"
                     android:textColor="@color/colorAccent" android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border" android:textAlignment="center"/>
+                    android:background="@drawable/border" android:textAlignment="center"
+                    android:fontFamily="@font/permanent_marker"/>
             <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/sum2ScoreView" android:textSize="18sp"
-                    android:textColor="@color/colorAccent" android:textAlignment="center"
+                    android:layout_height="wrap_content" android:id="@+id/sum2ScoreView" android:textSize="24sp"
+                    android:textColor="@color/red" android:textAlignment="center"
                     android:lineSpacingExtra="8sp"
                     android:background="@drawable/border"
-            />
+                    android:text="0" android:fontFamily="@font/permanent_marker"/>
             <TextView
                     android:text="Carré"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/carreView" android:textSize="18sp"
+                    android:layout_height="wrap_content" android:id="@+id/carreView" android:textSize="24sp"
                     android:textColor="@color/colorAccent" android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border" android:textAlignment="center"/>
+                    android:background="@drawable/border" android:textAlignment="center"
+                    android:fontFamily="@font/permanent_marker"/>
             <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent" android:id="@+id/carreScoreView" android:textSize="18sp"
-                    android:textColor="@color/colorAccent" android:textAlignment="center"
+                    android:layout_height="match_parent" android:id="@+id/carreScoreView" android:textSize="24sp"
+                    android:textColor="@color/red" android:textAlignment="center"
                     android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border"/>
+                    android:background="@drawable/border" android:text="0" android:fontFamily="@font/permanent_marker"/>
         </TableRow>
         <TableRow
                 android:layout_width="match_parent"
@@ -77,27 +82,29 @@
             <TextView
                     android:text="Total de 3"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/sum3View" android:textSize="18sp"
+                    android:layout_height="wrap_content" android:id="@+id/sum3View" android:textSize="24sp"
                     android:textColor="@color/colorAccent" android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border" android:textAlignment="center"/>
+                    android:background="@drawable/border" android:textAlignment="center"
+                    android:fontFamily="@font/permanent_marker"/>
             <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/sum3ScoreView" android:textSize="18sp"
-                    android:textColor="@color/colorAccent" android:textAlignment="center"
+                    android:layout_height="wrap_content" android:id="@+id/sum3ScoreView" android:textSize="24sp"
+                    android:textColor="@color/red" android:textAlignment="center"
                     android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border"/>
+                    android:background="@drawable/border" android:text="0" android:fontFamily="@font/permanent_marker"/>
             <TextView
                     android:text="Full"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/fullView" android:textSize="18sp"
+                    android:layout_height="wrap_content" android:id="@+id/fullView" android:textSize="24sp"
                     android:textColor="@color/colorAccent" android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border" android:textAlignment="center"/>
+                    android:background="@drawable/border" android:textAlignment="center"
+                    android:fontFamily="@font/permanent_marker"/>
             <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent" android:id="@+id/fullScoreView" android:textSize="18sp"
-                    android:textColor="@color/colorAccent" android:textAlignment="center"
+                    android:layout_height="match_parent" android:id="@+id/fullScoreView" android:textSize="24sp"
+                    android:textColor="@color/red" android:textAlignment="center"
                     android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border"/>
+                    android:background="@drawable/border" android:text="0" android:fontFamily="@font/permanent_marker"/>
         </TableRow>
         <TableRow
                 android:layout_width="match_parent"
@@ -105,27 +112,29 @@
             <TextView
                     android:text="Total de 4"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/sum4View" android:textSize="18sp"
+                    android:layout_height="wrap_content" android:id="@+id/sum4View" android:textSize="24sp"
                     android:textColor="@color/colorAccent" android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border" android:textAlignment="center"/>
+                    android:background="@drawable/border" android:textAlignment="center"
+                    android:fontFamily="@font/permanent_marker"/>
             <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/sum4ScoreView" android:textSize="18sp"
-                    android:textColor="@color/colorAccent" android:textAlignment="center"
+                    android:layout_height="wrap_content" android:id="@+id/sum4ScoreView" android:textSize="24sp"
+                    android:textColor="@color/red" android:textAlignment="center"
                     android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border"/>
+                    android:background="@drawable/border" android:text="0" android:fontFamily="@font/permanent_marker"/>
             <TextView
                     android:text="P. Suite"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/psuiteView" android:textSize="18sp"
+                    android:layout_height="wrap_content" android:id="@+id/psuiteView" android:textSize="24sp"
                     android:textColor="@color/colorAccent" android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border" android:textAlignment="center"/>
+                    android:background="@drawable/border" android:textAlignment="center"
+                    android:fontFamily="@font/permanent_marker"/>
             <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent" android:id="@+id/psuiteScoreView" android:textSize="18sp"
-                    android:textColor="@color/colorAccent" android:textAlignment="center"
+                    android:layout_height="match_parent" android:id="@+id/psuiteScoreView" android:textSize="24sp"
+                    android:textColor="@color/red" android:textAlignment="center"
                     android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border"/>
+                    android:background="@drawable/border" android:text="0" android:fontFamily="@font/permanent_marker"/>
         </TableRow>
         <TableRow
                 android:layout_width="match_parent"
@@ -133,27 +142,29 @@
             <TextView
                     android:text="Total de 5"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/sum5View" android:textSize="18sp"
+                    android:layout_height="wrap_content" android:id="@+id/sum5View" android:textSize="24sp"
                     android:textColor="@color/colorAccent" android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border" android:textAlignment="center"/>
+                    android:background="@drawable/border" android:textAlignment="center"
+                    android:fontFamily="@font/permanent_marker"/>
             <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/sum5ScoreView" android:textSize="18sp"
-                    android:textColor="@color/colorAccent" android:textAlignment="center"
+                    android:layout_height="wrap_content" android:id="@+id/sum5ScoreView" android:textSize="24sp"
+                    android:textColor="@color/red" android:textAlignment="center"
                     android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border"/>
+                    android:background="@drawable/border" android:text="0" android:fontFamily="@font/permanent_marker"/>
             <TextView
                     android:text="G. Suite"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/gsuiteView" android:textSize="18sp"
+                    android:layout_height="wrap_content" android:id="@+id/gsuiteView" android:textSize="24sp"
                     android:textColor="@color/colorAccent" android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border" android:textAlignment="center"/>
+                    android:background="@drawable/border" android:textAlignment="center"
+                    android:fontFamily="@font/permanent_marker"/>
             <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent" android:id="@+id/gsuiteScoreView" android:textSize="18sp"
-                    android:textColor="@color/colorAccent" android:textAlignment="center"
+                    android:layout_height="match_parent" android:id="@+id/gsuiteScoreView" android:textSize="24sp"
+                    android:textColor="@color/red" android:textAlignment="center"
                     android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border"/>
+                    android:background="@drawable/border" android:text="0" android:fontFamily="@font/permanent_marker"/>
         </TableRow>
         <TableRow
                 android:layout_width="match_parent"
@@ -161,27 +172,29 @@
             <TextView
                     android:text="Total de 6"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent" android:id="@+id/sum6View" android:textSize="18sp"
+                    android:layout_height="match_parent" android:id="@+id/sum6View" android:textSize="24sp"
                     android:textColor="@color/colorAccent" android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border" android:textAlignment="center"/>
+                    android:background="@drawable/border" android:textAlignment="center"
+                    android:fontFamily="@font/permanent_marker"/>
             <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/sum6ScoreView" android:textSize="18sp"
-                    android:textColor="@color/colorAccent" android:textAlignment="center"
+                    android:layout_height="wrap_content" android:id="@+id/sum6ScoreView" android:textSize="24sp"
+                    android:textColor="@color/red" android:textAlignment="center"
                     android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border"/>
+                    android:background="@drawable/border" android:text="0" android:fontFamily="@font/permanent_marker"/>
             <TextView
                     android:text="Yams"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/yamsView" android:textSize="18sp"
+                    android:layout_height="wrap_content" android:id="@+id/yamsView" android:textSize="24sp"
                     android:textColor="@color/colorAccent" android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border" android:textAlignment="center"/>
+                    android:background="@drawable/border" android:textAlignment="center"
+                    android:fontFamily="@font/permanent_marker"/>
             <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent" android:id="@+id/yamsScoreView" android:textSize="18sp"
-                    android:textColor="@color/colorAccent" android:textAlignment="center"
+                    android:layout_height="match_parent" android:id="@+id/yamsScoreView" android:textSize="24sp"
+                    android:textColor="@color/red" android:textAlignment="center"
                     android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border"/>
+                    android:background="@drawable/border" android:text="0" android:fontFamily="@font/permanent_marker"/>
         </TableRow>
         <TableRow
                 android:layout_width="match_parent"
@@ -189,27 +202,28 @@
             <TextView
                     android:text="Bonus"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/bonusView" android:textSize="18sp"
+                    android:layout_height="wrap_content" android:id="@+id/bonusView" android:textSize="24sp"
                     android:textColor="@color/colorAccent" android:textAlignment="center"
                     android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border"/>
+                    android:background="@drawable/border" android:fontFamily="@font/permanent_marker"/>
             <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/bonusScoreView" android:textSize="18sp"
+                    android:layout_height="wrap_content" android:id="@+id/bonusScoreView" android:textSize="24sp"
                     android:textColor="@color/colorAccent" android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border" android:textAlignment="center"/>
+                    android:background="@drawable/border" android:textAlignment="center"
+                    android:text="0" android:fontFamily="@font/permanent_marker"/>
             <TextView
                     android:text="Chance"
                     android:layout_width="71dp"
-                    android:layout_height="wrap_content" android:id="@+id/chanceView" android:textSize="18sp"
+                    android:layout_height="wrap_content" android:id="@+id/chanceView" android:textSize="24sp"
                     android:textColor="@color/colorAccent" android:textAlignment="center"
                     android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border"/>
+                    android:background="@drawable/border" android:fontFamily="@font/permanent_marker"/>
             <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent" android:id="@+id/chanceScoreView" android:textSize="18sp"
+                    android:layout_height="match_parent" android:id="@+id/chanceScoreView" android:textSize="24sp"
                     android:background="@drawable/border" android:textAlignment="center"
-                    android:textColor="@color/colorAccent"/>
+                    android:textColor="@color/red" android:text="0" android:fontFamily="@font/permanent_marker"/>
         </TableRow>
         <TableRow
                 android:layout_width="match_parent"
@@ -217,44 +231,45 @@
             <TextView
                     android:text="Total I"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/total1View" android:textSize="18sp"
+                    android:layout_height="wrap_content" android:id="@+id/total1View" android:textSize="24sp"
                     android:textColor="@color/colorAccent" android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border" android:textAlignment="center"/>
+                    android:background="@drawable/border" android:textAlignment="center"
+                    android:fontFamily="@font/permanent_marker"/>
             <TextView
-                    android:layout_width="114dp"
-                    android:layout_height="wrap_content" android:id="@+id/total1ScoreView" android:textSize="18sp"
+                    android:layout_width="62dp"
+                    android:layout_height="wrap_content" android:id="@+id/total1ScoreView" android:textSize="24sp"
                     android:textColor="@color/colorAccent" android:textAlignment="center"
                     android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border"/>
+                    android:background="@drawable/border" android:text="0" android:fontFamily="@font/permanent_marker"/>
             <TextView
                     android:text="Total II"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/total2View" android:textSize="18sp"
+                    android:layout_width="112dp"
+                    android:layout_height="wrap_content" android:id="@+id/total2View" android:textSize="24sp"
                     android:textColor="@color/colorAccent" android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border" android:textAlignment="center"/>
+                    android:background="@drawable/border" android:textAlignment="center"
+                    android:fontFamily="@font/permanent_marker"/>
             <TextView
-                    android:layout_width="147dp"
-                    android:layout_height="match_parent" android:id="@+id/total2ScoreView" android:textSize="18sp"
+                    android:layout_width="82dp"
+                    android:layout_height="match_parent" android:id="@+id/total2ScoreView" android:textSize="24sp"
                     android:textColor="@color/colorAccent" android:textAlignment="center"
                     android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border"/>
+                    android:background="@drawable/border" android:text="0" android:fontFamily="@font/permanent_marker"/>
         </TableRow>
         <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="201dp"
-                android:background="@drawable/border">
+                android:layout_height="match_parent">
             <TextView
                     android:text="Total"
-                    android:layout_width="77dp"
-                    android:layout_height="wrap_content" android:id="@+id/totalView" android:textSize="18sp"
-                    android:textColor="@color/colorAccent" android:lineSpacingExtra="8sp"
-                    android:background="@drawable/border" android:textAlignment="center"/>
+                    android:layout_width="115dp"
+                    android:layout_height="wrap_content" android:id="@+id/totalView" android:textSize="24sp"
+                    android:textAlignment="center" android:textColor="@color/colorAccent"
+                    android:background="@drawable/border" android:fontFamily="@font/permanent_marker"/>
             <TextView
-                    android:layout_width="21dp"
-                    android:layout_height="wrap_content" android:id="@+id/totalScoreView" android:textSize="18sp"
-                    android:textColor="@color/colorAccent" android:textAlignment="center"
-                    android:lineSpacingExtra="8sp"
-            />
+                    android:text="0"
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content" android:id="@+id/totalScoreView" android:textSize="24sp"
+                    android:textAlignment="center" android:textColor="@color/colorAccent"
+                    android:fontFamily="@font/permanent_marker"/>
         </TableRow>
     </TableLayout>
     <TextView
@@ -264,43 +279,48 @@
             android:id="@+id/yathzeeView" android:layout_marginTop="32dp"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp" android:textSize="24sp" android:textColor="@color/colorAccent"
-            android:textAlignment="center"/>
+            android:layout_marginStart="8dp" android:textSize="30sp" android:textColor="@color/red"
+            android:textAlignment="center" android:fontFamily="@font/permanent_marker"/>
     <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" app:srcCompat="@drawable/dice1"
+            android:layout_height="wrap_content"
             android:id="@+id/dice1View"
             android:layout_marginTop="40dp"
             app:layout_constraintTop_toBottomOf="@+id/yathzeeView" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/dice2View"/>
+            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/dice2View"
+            android:background="@drawable/dice1"/>
     <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" app:srcCompat="@drawable/dice2"
+            android:layout_height="wrap_content"
             android:id="@+id/dice2View"
             android:layout_marginTop="40dp"
             app:layout_constraintTop_toBottomOf="@+id/yathzeeView" app:layout_constraintStart_toEndOf="@+id/dice1View"
-            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/dice3View"/>
+            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/dice3View"
+            android:background="@drawable/dice2"/>
     <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" app:srcCompat="@drawable/dice3"
+            android:layout_height="wrap_content"
             android:id="@+id/dice3View"
             android:layout_marginTop="40dp"
             app:layout_constraintTop_toBottomOf="@+id/yathzeeView" app:layout_constraintStart_toEndOf="@+id/dice2View"
-            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/dice4View"/>
+            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/dice4View"
+            android:background="@drawable/dice3"/>
     <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" app:srcCompat="@drawable/dice4"
+            android:layout_height="wrap_content"
             android:id="@+id/dice4View"
             android:layout_marginTop="40dp"
             app:layout_constraintTop_toBottomOf="@+id/yathzeeView" app:layout_constraintStart_toEndOf="@+id/dice3View"
-            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/dice5View"/>
+            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/dice5View"
+            android:background="@drawable/dice4"/>
     <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" app:srcCompat="@drawable/dice5"
+            android:layout_height="wrap_content"
             android:id="@+id/dice5View"
             android:layout_marginTop="40dp"
             app:layout_constraintTop_toBottomOf="@+id/yathzeeView" app:layout_constraintStart_toEndOf="@+id/dice4View"
-            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/dice5"/>
     <Button
             android:text="Règles"
             android:layout_width="wrap_content"
@@ -309,7 +329,7 @@
             app:layout_constraintTop_toBottomOf="@+id/dice3View" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/rollButton"
             android:background="@color/colorPrimary"
-    />
+            android:fontFamily="@font/permanent_marker"/>
     <Button
             android:text="Lancer"
             android:layout_width="wrap_content"
@@ -317,5 +337,5 @@
             android:id="@+id/rollButton" android:layout_marginTop="52dp"
             app:layout_constraintTop_toBottomOf="@+id/dice3View" app:layout_constraintStart_toEndOf="@+id/rulesButton"
             app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/colorPrimary" android:fontFamily="@font/permanent_marker"/>
 </android.support.constraint.ConstraintLayout>
