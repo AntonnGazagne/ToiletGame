@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
             goHangman()
         }
 
-        morpinIcView.setOnClickListener{
+        morpionIcView.setOnClickListener{
             goMorpion()
         }
 

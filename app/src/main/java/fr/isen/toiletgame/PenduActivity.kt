@@ -31,10 +31,9 @@ class PenduActivity : AppCompatActivity(), View.OnClickListener {
         regles.setOnClickListener {
             val alertDialog = AlertDialog.Builder(this@PenduActivity)
             alertDialog.setTitle("Règles du jeu")
-            alertDialog.setMessage("L'objectif du jeu est de découvrir un mot en devinant les lettres le composant. À chaque tour, le joueur choisit une lettre de l'alphabet qu'il estime pouvant faire partie du mot à deviner. Si le mot contient cette lettre, celle-ci sera montrée et placée à sa/ses position(s) dans la composition du mot. Sinon, un croquis représentant un corps humain sera peu à peu formé. Lorsque les 6 parties de ce croquis sont terminées, le joueur a perdu.")
+            alertDialog.setMessage("L'objectif du jeu est de découvrir un mot en devinant les lettres le composant.\n\nÀ chaque tour, le joueur choisit une lettre de l'alphabet qu'il estime pouvant faire partie du mot à deviner. Si le mot contient cette lettre, celle-ci sera montrée et placée à sa/ses position(s) dans la composition du mot. Sinon, un croquis représentant un corps humain sera peu à peu formé.\n\nLorsque les 6 parties de ce croquis sont terminées, le joueur a perdu.")
             alertDialog.setNeutralButton("Ok"){_,_ -> }
             alertDialog.create().show()
-            regles.hideKeyboard()
         }
         btn_send.setOnClickListener(this)
 
@@ -64,6 +63,10 @@ class PenduActivity : AppCompatActivity(), View.OnClickListener {
 
         if (lettreFromInput.isNotEmpty() && (lettreFromInput.single() in 'a'..'z' || lettreFromInput.single() in 'A'..'Z')) {
             if (!listOfLetters.toString().contains(lettreFromInput.single())) {
+                // La lettre n'est pas dans le mot
+                if (!mot.contains(lettreFromInput)) {
+                    error++
+                }
                 listOfLetters.append(lettreFromInput.single())
                 verifieLettreDansMot(lettreFromInput.single(), mot)
             }
@@ -77,10 +80,6 @@ class PenduActivity : AppCompatActivity(), View.OnClickListener {
                 creerDialog(win)
             }
 
-            // La lettre n'est pas dans le mot
-            if (!mot.contains(lettreFromInput)) {
-                error++
-            }
             setImage(error)
             if (error == 6) {
                 win = false
@@ -144,8 +143,9 @@ class PenduActivity : AppCompatActivity(), View.OnClickListener {
             finish()
         }
 
+        builder.setCancelable(false)
+
         builder.create().show()
-        tv_lettres_tapees.hideKeyboard()
     }
 
     fun getListeMots(): ArrayList<String> {
@@ -169,15 +169,6 @@ class PenduActivity : AppCompatActivity(), View.OnClickListener {
         val random = Math.floor(Math.random() * listofWords.size)
         val mot = listofWords.get(random.toInt()).trim()
         return mot
-    }
-
-    override fun onBackPressed() {
-        finish()
-    }
-
-    fun View.hideKeyboard() {
-        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(windowToken, 0)
     }
 
 }
