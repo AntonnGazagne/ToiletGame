@@ -63,6 +63,10 @@ class PenduActivity : AppCompatActivity(), View.OnClickListener {
 
         if (lettreFromInput.isNotEmpty() && (lettreFromInput.single() in 'a'..'z' || lettreFromInput.single() in 'A'..'Z')) {
             if (!listOfLetters.toString().contains(lettreFromInput.single())) {
+                // La lettre n'est pas dans le mot
+                if (!mot.contains(lettreFromInput)) {
+                    error++
+                }
                 listOfLetters.append(lettreFromInput.single())
                 verifieLettreDansMot(lettreFromInput.single(), mot)
             }
@@ -76,10 +80,6 @@ class PenduActivity : AppCompatActivity(), View.OnClickListener {
                 creerDialog(win)
             }
 
-            // La lettre n'est pas dans le mot
-            if (!mot.contains(lettreFromInput)) {
-                error++
-            }
             setImage(error)
             if (error == 6) {
                 win = false
@@ -143,8 +143,9 @@ class PenduActivity : AppCompatActivity(), View.OnClickListener {
             finish()
         }
 
+        builder.setCancelable(false)
+
         builder.create().show()
-        initGame()
     }
 
     fun getListeMots(): ArrayList<String> {
