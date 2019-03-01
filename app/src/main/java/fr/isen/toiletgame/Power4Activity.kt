@@ -29,7 +29,7 @@ class Power4Activity : AppCompatActivity() {
 
 
     //Si il y a l'IA
-    private var IA = true
+    private var ia = true
     //Si il y a 2 joueurs, Alterne entre RED et YELLOW
     private var joueurActuelle = RED
     //Empêche de jouer si true
@@ -66,16 +66,18 @@ class Power4Activity : AppCompatActivity() {
                 onPlay(i)
             }
         }
-        
+
         //Lorsque l'on clique sur le bouton nouvelle partie avec IA
         nouvellePartieIA.setOnClickListener{
-            IA = true
+            ia = true
+            titre.setText(R.string.Puissance4_IA)
             onNewGame()
         }
 
         //Lorsque l'on clique sur le bouton nouvelle partie avec un autre joueur
         nouvellePartieJoueur.setOnClickListener{
-            IA = false
+            ia = false
+            titre.setText(R.string.Puissance4_1V1)
             onNewGame()
         }
     }
@@ -90,14 +92,16 @@ class Power4Activity : AppCompatActivity() {
 
 
             if (!checkWin(column,ligne)){//Si cela n'entraine pas la victoire
-                if(IA){//Si la partie est face à l'IA
+                if(ia){//Si la partie est face à l'IA
                     onPlayIA()//On fait joueur l'IA
                 }else{//Si la partie est face à un autre joueur
                     //On échange de joueur
                     if(joueurActuelle == RED){
                         joueurActuelle = YELLOW
+                        Joueur.setText(R.string.JoueurJaune)
                     }else{
                         joueurActuelle = RED
+                        Joueur.setText(R.string.JoueurRouge)
                     }
                 }
                 if(checkWhereItIsPossibleToPlay().isEmpty()){//Si le terrain de jeu est plein

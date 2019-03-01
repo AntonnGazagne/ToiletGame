@@ -65,6 +65,7 @@ class TetrisActivity : AppCompatActivity() {
     }
 
     private fun onMoveLeft(){
+        var colorMoveable = getMoveableColor()
 
     }
 
@@ -90,6 +91,10 @@ class TetrisActivity : AppCompatActivity() {
             }
         }
         return colorMoveable
+    }
+
+    private fun checkIfCanMove(colorMoveable: ArrayList<Array<Int>>){
+
     }
 
 
