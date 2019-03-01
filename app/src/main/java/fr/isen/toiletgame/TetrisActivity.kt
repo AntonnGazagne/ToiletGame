@@ -1,45 +1,29 @@
 package fr.isen.toiletgame
 
-import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.BaseAdapter
+import android.os.Handler
 import kotlinx.android.synthetic.main.activity_tetris.*
-import kotlinx.android.synthetic.main.image_tetris.view.*
+
+private val LEFT = arrayOf(0,-1)
+private val RIGHT = arrayOf(0,1)
+private val DOWN = arrayOf(1,0)
 
 class TetrisActivity : AppCompatActivity() {
 
-    var adapter: colorAdapter? = null
-    val color = color(0,false)
-    var tetris =//14*12
-        arrayOf(arrayOf(color,color,color,color,color,color,color,color,color,color,color,color),
-            arrayOf(color,color,color,color,color,color,color,color,color,color,color,color),
-            arrayOf(color,color,color,color,color,color,color,color,color,color,color,color),
-            arrayOf(color,color,color,color,color,color,color,color,color,color,color,color),
-            arrayOf(color,color,color,color,color,color,color,color,color,color,color,color),
-            arrayOf(color,color,color,color,color,color,color,color,color,color,color,color),
-            arrayOf(color,color,color,color,color,color,color,color,color,color,color,color),
-            arrayOf(color,color,color,color,color,color,color,color,color,color,color,color),
-            arrayOf(color,color,color,color,color,color,color,color,color,color,color,color),
-            arrayOf(color,color,color,color,color,color,color,color,color,color,color,color),
-            arrayOf(color,color,color,color,color,color,color,color,color,color,color,color),
-            arrayOf(color,color,color,color,color,color,color,color,color,color,color,color),
-            arrayOf(color,color,color,color,color,color,color,color,color,color,color,color),
-            arrayOf(color,color,color,color,color,color,color,color,color,color,color,color),
-            arrayOf(color,color,color,color,color,color,color,color,color,color,color,color)
-        )
+    private lateinit var adapter: colorAdapter
+    private var tetris = ArrayList<ArrayList<color>>()
 
 
-    var colorList = ArrayList<Int>()
+    private var colorList = ArrayList<Int>()
+    private var endGame = false
+    private var score = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tetris)
 
-        colorList.add(0)
+        colorList.add(R.drawable.white)
         colorList.add(R.drawable.red)
         colorList.add(R.drawable.yellow)
         colorList.add(R.drawable.purple)
@@ -51,40 +35,109 @@ class TetrisActivity : AppCompatActivity() {
         terrain.adapter = adapter
 
         Left.setOnClickListener {
-            onMoveLeft()
+            onMove(LEFT)
         }
         Right.setOnClickListener {
-            onMoveRigth()
+            onMove(RIGHT)
         }
-        RotateLeft.setOnClickListener {
-            onRotateLeft()
+        Rotate.setOnClickListener {
+            onRotate()
         }
-        RotateRight.setOnClickListener {
-            onRotateRight()
+        NewGame.setOnClickListener {
+            onNewGame()
+        }
+        onNewGame()
+
+        moveDown()
+    }
+
+    private fun onNewGame(){
+        tetris.clear()
+        initBoard()
+        endGame = false
+        score = 0
+        checkUpdates()
+        onPlay()
+    }
+
+    private fun onPlay(){
+        addColor(1)
+    }
+
+    private fun moveDown(){
+        Handler().postDelayed({
+            onMove(DOWN)
+            moveDown()
+        }, 500)
+    }
+
+    private fun initBoard(){
+        for (i in 0..13){
+            tetris.add(initBoardColumns())
         }
     }
+    private fun initBoardColumns() : ArrayList<color>{
+        val array = ArrayList<color>()
+        for (i in 0..11){
+            array.add(color(0, false))
+        }
+        return array
+    }
 
-    private fun onMoveLeft(){
-        var colorMoveable = getMoveableColor()
+    private fun checkUpdates(){
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun onMove(direction: Array<Int>){
+        val colorMoveable = getMoveableColor()
+        var pieceCanMove = true
+        if (colorMoveable.isNotEmpty()) {
+            for (location in colorMoveable) {
+                if (!checkIfCanMove(direction, location)) {
+                    pieceCanMove = false
+                }
+            }
+            if (pieceCanMove) {
+                val color = tetris[colorMoveable[0][0]][colorMoveable[0][1]].color
+                for (location in colorMoveable) {//On enlève la pièce
+                    tetris[location[0]][location[1]].color = 0
+                    tetris[location[0]][location[1]].isMoveable = false
+                }
+                for (location in colorMoveable) {
+                    tetris[location[0]+direction[0]][location[1]+direction[1]].color = color
+                    tetris[location[0]+direction[0]][location[1]+direction[1]].isMoveable = true
+                }
+            }else{
+                if (direction contentEquals DOWN){
+                    for (location in colorMoveable){
+                        tetris[location[0]][location[1]].isMoveable = false
+                    }
+                    addColor((1..colorList.size-1).random())
+                    checkLine()
+                }
+            }
+        }
+        checkUpdates()
+    }
+
+    private fun onRotate(){
 
     }
 
-    private fun onMoveRigth(){
-
-    }
-
-    private fun onRotateLeft(){
-
-    }
-
-    private fun onRotateRight(){
-
+    private fun checkLine(){
+        for (i in tetris.size-1 downTo 0){
+            if(tetris[i].filter { it.color > 0 }.size == 12){
+                for(j in i downTo 1){
+                    tetris[i] = tetris[i-1]
+                }
+            }
+        }
     }
 
     private fun getMoveableColor(): ArrayList<Array<Int>>{
-        var colorMoveable = ArrayList<Array<Int>>()
-        for(i in 0..tetris.size){
-            for (j in 0..tetris[0].size){
+        val colorMoveable = ArrayList<Array<Int>>()
+        for(i in 0..13){
+            for (j in 0..11){
                 if (tetris[i][j].isMoveable){
                     colorMoveable.add(arrayOf(i,j))
                 }
@@ -93,10 +146,24 @@ class TetrisActivity : AppCompatActivity() {
         return colorMoveable
     }
 
-    private fun checkIfCanMove(colorMoveable: ArrayList<Array<Int>>){
-
+    private fun checkIfCanMove(movement: Array<Int>, location: Array<Int>) : Boolean{
+        var canMove = false
+        val newLocation = arrayOf(location[0]+movement[0],location[1]+movement[1])
+        if(checkIfInBoard(newLocation)
+            && (tetris[newLocation[0]][newLocation[1]].color == 0 || tetris[newLocation[0]][newLocation[1]].isMoveable)){
+            canMove = true
+        }
+        return canMove
     }
 
+    private fun checkIfInBoard(location: Array<Int>): Boolean{
+        return (location[0] >= 0 && location[0] < tetris.size && location[1] >= 0 && location[1] < tetris[0].size)
+    }
 
-
+    private fun addColor(color: Int){
+        if(tetris[0][5].color == 0){
+            tetris[0][5].color = color
+            tetris[0][5].isMoveable = true
+        }
+    }
 }

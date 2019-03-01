@@ -5,9 +5,14 @@
     <string name="Puissance4_1V1">Puissance 4: Joueur VS Joueur</string>
     <string name="nouvellePartie">Nouvelle partie IA</string>
     <string name="nouvellePartieJ">Nouvelle partie 1V1</string>
-    <string name="JoueurRouge">Au Rouge</string>
-    <string name="JoueurJaune">Au Jaune</string>
+
+    <string name="regles">Règles</string>
+
+    <string name="newGame">Nouvelle partie</string>
+    <string name="JoueurRouge">Au tour des rouges</string>
+    <string name="JoueurJaune">Au tour des jaunes</string>
     <string name="tetris">Tetris</string>
+    <string name="rotate">Rotate</string>
 
     <string name="score">Score</string>
     <string name="send">Envoyer</string>
