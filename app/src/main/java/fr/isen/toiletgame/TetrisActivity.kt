@@ -110,7 +110,7 @@ class TetrisActivity : AppCompatActivity() {
                         onMove(DOWN)
                     }
                 }
-            },0, 1000
+            },0, 750
         )
     }
 
@@ -234,7 +234,8 @@ class TetrisActivity : AppCompatActivity() {
 
     private fun checkLine(){
         var gain = 0
-        for (i in tetris.size-1 downTo 0){
+        var i = tetris.size-1
+        while (i > 0){
             if(tetris[i].filter { it.color > WHITE }.size == 12){
                 for(j in i downTo 1){
                     val array = ArrayList<color>()
@@ -245,6 +246,8 @@ class TetrisActivity : AppCompatActivity() {
                     tetris[j] = array
                 }
                 gain++
+            }else{
+                i--
             }
         }
         score += gain*gain
