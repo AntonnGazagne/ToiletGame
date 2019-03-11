@@ -83,9 +83,9 @@ class Power4Activity : AppCompatActivity() {
     private fun showRule(){
         val alertDialog = AlertDialog.Builder(this@Power4Activity)
         alertDialog.setTitle("Règles du puissance 4")
-        alertDialog.setMessage("Vous devez aligner 4 jetons de votre couleur sur une ligne, une colonne ou une diagonale pour gagner\n" +
-                "Vous placez, à tour de rôle avec votre opposant, un jeton de votre couleur\n" +
-                "Pour placer un jeton, cliquez sur la colonne où vous souhaitez le mettre")
+        alertDialog.setMessage("Vous devez aligner 4 jetons de votre couleur sur une ligne, une colonne ou une diagonale pour gagner.\n" +
+                "Vous placez, à tour de rôle avec votre opposant, un jeton de votre couleur.\n" +
+                "Pour placer un jeton, cliquez sur la colonne où vous souhaitez le mettre.")
         alertDialog.setNeutralButton("Ok"){_,_ ->}
         alertDialog.create().show()
     }
@@ -297,7 +297,7 @@ class Power4Activity : AppCompatActivity() {
             }
         }
 
-        if(numbers.filter{it > 3 }.isNotEmpty()){
+        if(numbers.any {it > 3 }){
             return true
         }
         return false

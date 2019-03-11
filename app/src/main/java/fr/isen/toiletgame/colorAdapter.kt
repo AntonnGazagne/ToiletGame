@@ -8,10 +8,10 @@ import android.widget.BaseAdapter
 import kotlinx.android.synthetic.main.image_tetris.view.*
 
 
-class colorAdapter : BaseAdapter {
-    var tetris : ArrayList<ArrayList<color>>
-    var context: Context? = null
-    var colorList : ArrayList<Int>
+class ColorAdapter : BaseAdapter {
+    private var tetris : ArrayList<ArrayList<color>>
+    private var context: Context? = null
+    private var colorList : ArrayList<Int>
 
 
     constructor(context: Context, tetris: ArrayList<ArrayList<color>>, colorList: ArrayList<Int>) : super() {

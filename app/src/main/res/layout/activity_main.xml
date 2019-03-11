@@ -72,11 +72,20 @@
             app:layout_constraintStart_toStartOf="@+id/p4IcView" android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@+id/p4IcView" android:textAlignment="center" android:textSize="18sp"
             android:textColor="@color/colorAccent"/>
-    <Button
-            android:text="Button"
+    <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp" app:srcCompat="@drawable/tetris"
+            android:id="@+id/tetris" app:layout_constraintStart_toStartOf="@+id/hangmanView"
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="@+id/p4View"
+            android:layout_marginEnd="8dp" android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/hangmanView"/>
+    <TextView
+            android:text="@string/tetris"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tetris" android:layout_marginTop="86dp"
-            app:layout_constraintTop_toBottomOf="@+id/hangmanView" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="81dp"/>
+            android:id="@+id/textView"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/tetris" app:layout_constraintEnd_toEndOf="@+id/tetris"
+            app:layout_constraintStart_toStartOf="@+id/tetris"
+            android:textSize="18sp" android:textColor="@color/colorAccent"/>
 </android.support.constraint.ConstraintLayout>
