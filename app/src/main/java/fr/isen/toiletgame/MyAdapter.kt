@@ -5,16 +5,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.ArrayAdapter
 import android.widget.ImageView
-
-
-
-
-
-
-
 
 class MyAdapter(context: Context, tokens: Array<Int>) : ArrayAdapter<Int>(context, 0, tokens) {
 
@@ -25,7 +17,7 @@ class MyAdapter(context: Context, tokens: Array<Int>) : ArrayAdapter<Int>(contex
             convertView = LayoutInflater.from(context).inflate(R.layout.activity_my_adapter, parent, false)
         }
 
-        val viewHolder = view()
+        val viewHolder = ColorView()
         viewHolder.pawn = convertView!!.findViewById(R.id.pawn)
 
         val couleur= getItem(position)
@@ -44,7 +36,7 @@ class MyAdapter(context: Context, tokens: Array<Int>) : ArrayAdapter<Int>(contex
 
 
 
-    private inner class view {
+    private inner class ColorView {
         var pawn: ImageView? = null
     }
 }

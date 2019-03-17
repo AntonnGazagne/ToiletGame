@@ -6,7 +6,7 @@
 
     <ImageView
             android:layout_width="35dp"
-            android:layout_height="35dp" app:srcCompat="@drawable/dice1"
+            android:layout_height="35dp" app:srcCompat="@drawable/green"
             android:id="@+id/color" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
 </android.support.constraint.ConstraintLayout>

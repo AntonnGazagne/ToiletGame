@@ -65,9 +65,10 @@ class Power4Activity : AppCompatActivity() {
         alertDialog.setNegativeButton("Joueur VS IA"){_,_ ->
             ia = true
             titre.setText(R.string.Puissance4_IA)
-            Joueur.setText(R.string.JoueurRouge)
-            Joueur.setTextColor(Color.parseColor("#FF0000"))
+            Joueur.text = ""
         }
+
+        alertDialog.setCancelable(false)
         alertDialog.create().show()
     }
 

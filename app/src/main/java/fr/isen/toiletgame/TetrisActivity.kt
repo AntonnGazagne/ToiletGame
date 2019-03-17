@@ -40,7 +40,6 @@ class TetrisActivity : AppCompatActivity() {
         colorList.add(R.drawable.darkblue)
         colorList.add(R.drawable.green)
 
-
         initBoard()
 
         adapter = ColorAdapter(this, tetris, colorList)
@@ -72,6 +71,7 @@ class TetrisActivity : AppCompatActivity() {
         alertDialog.setNeutralButton("Commencer la partie"){_,_ ->
             onNewGame()
         }
+        alertDialog.setCancelable(false)
         alertDialog.create().show()
     }
 
@@ -436,6 +436,9 @@ class TetrisActivity : AppCompatActivity() {
         nextColor = (1..(colorList.size - 1)).random()
         afficheNextPiece()
     }
+
+
+
     private fun afficheNextPiece() {
         when (nextColor) {
             1 -> {
