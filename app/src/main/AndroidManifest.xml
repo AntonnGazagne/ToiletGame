@@ -12,6 +12,9 @@
         <activity android:name=".TetrisActivity"
                 android:screenOrientation="portrait">
         </activity>
+        <activity android:name=".MorpionActivity"
+                  android:screenOrientation="portrait">
+        </activity>
         <activity android:name=".RulesActivity"
                   android:screenOrientation="portrait">
         </activity>

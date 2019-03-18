@@ -70,7 +70,7 @@ class MorpionActivity : AppCompatActivity() {
         buttonJouer.setOnClickListener {
             if (pseudoField.text.isNotEmpty())
             {
-            initialiserLaPartie(plateau)
+                initialiserLaPartie(plateau)
             }
             else{
                 Toast.makeText(  this,  "Il faut rentrer un pseudo.", Toast.LENGTH_LONG).show()
@@ -115,7 +115,7 @@ class MorpionActivity : AppCompatActivity() {
 
     private fun initialiserLaPartie(plateau: ArrayList<ImageView>) { //avant ArrayList<Button>
         //buttonRelancer.isEnabled = false
-
+        NumeroDuJoueurEnCour = 0
         var pseudo1 = pseudoField.getText().toString();
         User = initialisationOrdreJoueur("$pseudo1", "ORDINATEUR")
 
@@ -360,8 +360,8 @@ class MorpionActivity : AppCompatActivity() {
     }
 
     private fun verification3MemeSymbole(): Boolean =
-        verification3MemeSymboleDiagonal() &&
-                verification3MemeSymboleVertical() &&
+        verification3MemeSymboleDiagonal() ||
+                verification3MemeSymboleVertical() ||
         verification3MemeSymboleHorizontale()
 
 
