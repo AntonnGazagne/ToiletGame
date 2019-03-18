@@ -8,13 +8,13 @@ import android.widget.BaseAdapter
 import kotlinx.android.synthetic.main.image_tetris.view.*
 
 
-class colorAdapter : BaseAdapter {
-    var tetris : Array<Array<color>>
-    var context: Context? = null
-    var colorList : ArrayList<Int>
+class ColorAdapter : BaseAdapter {
+    private var tetris : ArrayList<ArrayList<color>>
+    private var context: Context? = null
+    private var colorList : ArrayList<Int>
 
 
-    constructor(context: Context, tetris: Array<Array<color>>, colorList: ArrayList<Int>) : super() {
+    constructor(context: Context, tetris: ArrayList<ArrayList<color>>, colorList: ArrayList<Int>) : super() {
         this.context = context
         this.tetris = tetris
         this.colorList = colorList
@@ -35,8 +35,8 @@ class colorAdapter : BaseAdapter {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val color = this.tetris[position/12][position%12].color
 
-        var inflator = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        var colorView = inflator.inflate(R.layout.image_tetris, null)
+        val inflator = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val colorView = inflator.inflate(R.layout.image_tetris, null)
         colorView.color.setImageResource(colorList[color])
 
         return colorView

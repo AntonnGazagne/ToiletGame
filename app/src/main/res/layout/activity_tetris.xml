@@ -8,62 +8,46 @@
         tools:context=".TetrisActivity">
 
     <TextView
-            android:text="@string/tetris"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/Titre" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="32dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="64dp"
-    />
-    <TextView
             android:text="@string/score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/score" app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="28dp"
-            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp"
-            android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/Left"/>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/valeurScore"
-            app:layout_constraintStart_toEndOf="@+id/score" android:layout_marginStart="24dp"
-            app:layout_constraintTop_toTopOf="@+id/score"/>
+            android:id="@+id/Score" app:layout_constraintTop_toTopOf="@+id/nextPiece"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/nextPiece"
+            android:textSize="30sp"/>
     <ImageView
             android:layout_width="60dp"
-            android:layout_height="60dp" app:srcCompat="@drawable/yellowpawn"
+            android:layout_height="60dp" app:srcCompat="@drawable/tetris"
             android:id="@+id/nextPiece"
-            app:layout_constraintBottom_toTopOf="@+id/score"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintStart_toEndOf="@+id/Right" android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/terrain"/>
-    <Button
-            android:text="Left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/Left" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="@+id/nextPiece" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp"/>
-    <Button
-            android:text="Right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/Score" app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/NewGame"/>
+    <ImageView
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:id="@+id/Left"
+            app:srcCompat="@drawable/leftarrow"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/Rotate"
+            app:layout_constraintTop_toTopOf="@+id/Rotate"/>
+    <ImageView
+            android:layout_width="0dp"
+            android:layout_height="100dp"
             android:id="@+id/Right"
-            app:layout_constraintTop_toTopOf="@+id/Left" android:layout_marginStart="17dp"
-            app:layout_constraintStart_toEndOf="@+id/Left"/>
-    <Button
-            android:text="RotateLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/RotateLeft"
-            app:layout_constraintTop_toTopOf="@+id/nextPiece" android:layout_marginStart="8dp"
-            app:layout_constraintStart_toEndOf="@+id/nextPiece"/>
-    <Button
-            android:text="RotateRight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/RotateRight" android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/RotateLeft"
-            app:layout_constraintStart_toStartOf="@+id/RotateLeft"/>
+            app:srcCompat="@drawable/rightarrow"
+            app:layout_constraintStart_toEndOf="@+id/Down"
+            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/Rotate"/>
+    <ImageView
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:id="@+id/Rotate"
+            app:srcCompat="@drawable/redrotate"
+            app:layout_constraintStart_toEndOf="@+id/Left"
+            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/Down"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/terrain"/>
     <GridView
             android:layout_width="395dp"
             android:numColumns="12"
@@ -71,11 +55,19 @@
             app:layout_constraintTop_toBottomOf="@+id/NewGame" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp" android:id="@+id/terrain"/>
     <Button
-            android:text="Button"
+            android:text="@string/newGame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/NewGame"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="64dp"/>
+            app:layout_constraintTop_toTopOf="@+id/nextPiece"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            android:layout_marginTop="16dp" android:textSize="14sp" app:layout_constraintStart_toEndOf="@+id/nextPiece"
+            app:layout_constraintHorizontal_bias="0.5" android:background="@color/yellow"/>
+    <ImageView
+            android:layout_width="0dp"
+            android:layout_height="100dp" app:srcCompat="@drawable/downarrow"
+            android:id="@+id/Down"
+            app:layout_constraintStart_toEndOf="@+id/Rotate" app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/Right"
+            app:layout_constraintTop_toTopOf="@+id/Rotate"/>
 </android.support.constraint.ConstraintLayout>

@@ -1,8 +1,9 @@
 package fr.isen.toiletgame
 
+import android.app.AlertDialog
+import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_power4.*
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ListView
@@ -16,7 +17,6 @@ private const val YELLOW = 2
 
 class Power4Activity : AppCompatActivity() {
 
-    //Tableau 2D représentant le terrain de jeu
     private var power4 =
         arrayOf(arrayOf(0,0,0,0,0,0),
             arrayOf(0,0,0,0,0,0),
@@ -28,22 +28,70 @@ class Power4Activity : AppCompatActivity() {
         )
 
 
-    //Si il y a l'IA
+
     private var ia = true
-    //Si il y a 2 joueurs, Alterne entre RED et YELLOW
     private var joueurActuelle = RED
-    //Empêche de jouer si true
     private var endGame = false
 
-    //Pour gérer les listViews
     private val adapters = ArrayList<MyAdapter>()
     private val columns = ArrayList<ListView>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_power4)
-        
-        //Liste des adapters pour chaque listView
+
+        createGameBoard()
+        playMode()
+
+        nouvellePartie.setOnClickListener{
+            onNewGame()
+        }
+
+        regles.setOnClickListener {
+            showRule()
+        }
+    }
+
+    private fun playMode(){
+        val alertDialog = AlertDialog.Builder(this@Power4Activity)
+        alertDialog.setTitle("Mode de jeu")
+        alertDialog.setMessage("Dans quel mode voulez-vous jouer?")
+        alertDialog.setPositiveButton("Joueur VS Joueur"){_,_ ->
+            ia = false
+            titre.setText(R.string.Puissance4_1V1)
+            Joueur.setText(R.string.JoueurRouge)
+            Joueur.setTextColor(Color.parseColor("#FF0000"))
+        }
+        alertDialog.setNegativeButton("Joueur VS IA"){_,_ ->
+            ia = true
+            titre.setText(R.string.Puissance4_IA)
+            Joueur.text = ""
+        }
+
+        alertDialog.setCancelable(false)
+        alertDialog.create().show()
+    }
+
+    private fun finDePartie(victor: String){
+        endGame = true
+        val alertDialog = AlertDialog.Builder(this@Power4Activity)
+        alertDialog.setTitle("Fin de la partie")
+        alertDialog.setMessage(victor)
+        alertDialog.setNeutralButton("Ok"){_,_ ->}
+        alertDialog.create().show()
+    }
+
+    private fun showRule(){
+        val alertDialog = AlertDialog.Builder(this@Power4Activity)
+        alertDialog.setTitle("Règles du puissance 4")
+        alertDialog.setMessage("Vous devez aligner 4 jetons de votre couleur sur une ligne, une colonne ou une diagonale pour gagner.\n" +
+                "Vous placez, à tour de rôle avec votre opposant, un jeton de votre couleur.\n" +
+                "Pour placer un jeton, cliquez sur la colonne où vous souhaitez le mettre.")
+        alertDialog.setNeutralButton("Ok"){_,_ ->}
+        alertDialog.create().show()
+    }
+
+    private fun createGameBoard(){
         adapters.add(MyAdapter(this, power4[0]))
         adapters.add(MyAdapter(this, power4[1]))
         adapters.add(MyAdapter(this, power4[2]))
@@ -51,7 +99,7 @@ class Power4Activity : AppCompatActivity() {
         adapters.add(MyAdapter(this, power4[4]))
         adapters.add(MyAdapter(this, power4[5]))
         adapters.add(MyAdapter(this, power4[6]))
-        //Liste de chaque listView
+
         columns.add(column0)
         columns.add(column1)
         columns.add(column2)
@@ -59,70 +107,50 @@ class Power4Activity : AppCompatActivity() {
         columns.add(column4)
         columns.add(column5)
         columns.add(column6)
-        //On met un adapter sur chaque ListView
+
         for (i in 0..6){
             columns[i].adapter = adapters[i]
             columns[i].onItemClickListener = OnItemClickListener{ _, _, _, _ ->
                 onPlay(i)
             }
         }
-
-        //Lorsque l'on clique sur le bouton nouvelle partie avec IA
-        nouvellePartieIA.setOnClickListener{
-            ia = true
-            titre.setText(R.string.Puissance4_IA)
-            onNewGame()
-        }
-
-        //Lorsque l'on clique sur le bouton nouvelle partie avec un autre joueur
-        nouvellePartieJoueur.setOnClickListener{
-            ia = false
-            titre.setText(R.string.Puissance4_1V1)
-            onNewGame()
-        }
     }
 
-    //Fonction principal du jeu
     private fun onPlay(column: Int){
-
         val ligne = getFirstLigneVoid(column)
-        if (ligne != null && !endGame){//Si la partie n'est pas finie et que la colonne que l'on a cliqué a un emplacement libre
-
-            power4[column][ligne] = joueurActuelle//Un jeton est rajouté dans la colonne
-
-
-            if (!checkWin(column,ligne)){//Si cela n'entraine pas la victoire
-                if(ia){//Si la partie est face à l'IA
-                    onPlayIA()//On fait joueur l'IA
-                }else{//Si la partie est face à un autre joueur
-                    //On échange de joueur
+        if (ligne != null && !endGame){
+            power4[column][ligne] = joueurActuelle
+            if (!checkWin(column,ligne)){
+                if(ia){
+                    onPlayIA()
+                }else{
                     if(joueurActuelle == RED){
                         joueurActuelle = YELLOW
                         Joueur.setText(R.string.JoueurJaune)
+                        Joueur.setTextColor(Color.parseColor("#FFC73B"))
                     }else{
                         joueurActuelle = RED
                         Joueur.setText(R.string.JoueurRouge)
+                        Joueur.setTextColor(Color.parseColor("#FF0000"))
                     }
                 }
-                if(checkWhereItIsPossibleToPlay().isEmpty()){//Si le terrain de jeu est plein
-                    endGame = true//La partie est terminé
-                    Toast.makeText(this, "Egalité", Toast.LENGTH_LONG).show()//Egalité
+                if(checkWhereItIsPossibleToPlay().isEmpty()){
+                    finDePartie("Egalité")
                 }
-            }else{//Si la victoire d'un joueur a lieu
+            }else{
                 if(joueurActuelle == RED){
-                    Toast.makeText(this, "RED Victory", Toast.LENGTH_LONG).show()
+                    finDePartie("Les rouges ont gagné")
                 }else{
-                    Toast.makeText(this, "YELLOW Victory", Toast.LENGTH_LONG).show()
+                    finDePartie("Les jaunes ont gagné")
                 }
-                endGame = true
             }
         }
-        //On met à jour les listView
+
         chechIfUpdate()
     }
 
-    //On réinitialise les valeur
     private fun onNewGame(){
+        playMode()
         for(i in 0..6) {
             for (j in 0..5) {
                 power4[i][j] = VOID
@@ -133,138 +161,126 @@ class Power4Activity : AppCompatActivity() {
         chechIfUpdate()
     }
 
-    //Met à jour les listView avec les nouvelles valeurs
     private fun chechIfUpdate(){
         for(adapter in adapters){
             adapter.notifyDataSetChanged()
         }
     }
 
-    //Retourne la première ligne ne contenant pas de jeton dans la oolonne
     private fun getFirstLigneVoid(column : Int): Int?{
-        for (i in 5 downTo 0) {//On parcourt les lignes du bas vers le haut
-            if (power4[column][i] == VOID){//si il n'y a pas de jetons
-                return i//Renvoie la ligne correspondante
+        for (i in 5 downTo 0) {
+            if (power4[column][i] == VOID){
+                return i
             }
         }
-        return null//Sinon ne retourne rien
+        return null
     }
 
-    //Fonction gérant le comportement de l'IA
     private fun onPlayIA(){
-        var column = checkCanWin(YELLOW)//On vérifie si l'IA peut gagner
-        if(column != null){//Si c'est le cas
-            val ligne = getFirstLigneVoid(column)
-            power4[column][ligne!!] = YELLOW//L'IA joue à l'emplacement
-            endGame = true//La partie se termine par la défaite du joueur
-            Toast.makeText(this, "You Lose", Toast.LENGTH_LONG).show()
-            return//l'IA s'arrête ici
-        }
-        column = checkCanWin(RED)//On vérifie si le joueur peut gagner
-        if (column != null) {//Si le joueur peut gagner
-            val ligne = getFirstLigneVoid(column)
-            power4[column][ligne!!] = YELLOW//L'IA empêche le joueur de gagner
-            return//l'IA s'arrête ici
-        }
-
-        //Si l'IA ne peut pas gagner ou le joueur ne peut pas gagner au prochain tour
-        //Elle vérifie si en placant dans une colonne, le joueur peut gagner au prochain tour
-        val whereICanPlayWithoutLosing = checkWhereCanPlayWithoutLosing()
-        if(whereICanPlayWithoutLosing.isEmpty()){//Si l'IA peut jouer n'importe où sans avoir peur de perdre
-            column = checkWhereItIsPossibleToPlay().random()//Elle joue aléatoirement où elle peut
+        var column = checkCanWin(YELLOW)
+        if(column != null){
             val ligne = getFirstLigneVoid(column)
             power4[column][ligne!!] = YELLOW
-        }else{//Si l'IA ne peut pas jouer n'importe où sans avoir peur de perdre
-            column = whereICanPlayWithoutLosing.random()//Elle joue aléatoirement où elle peut sans perdre
+            finDePartie("L'IA a gagné")
+            return
+        }
+        column = checkCanWin(RED)
+        if (column != null) {
+            val ligne = getFirstLigneVoid(column)
+            power4[column][ligne!!] = YELLOW
+            return
+        }
+
+        val whereICanPlayWithoutLosing = checkWhereCanPlayWithoutLosing()
+        if(whereICanPlayWithoutLosing.isEmpty()){
+            column = checkWhereItIsPossibleToPlay().random()
+            val ligne = getFirstLigneVoid(column)
+            power4[column][ligne!!] = YELLOW
+        }else{
+            column = whereICanPlayWithoutLosing.random()
             val ligne = getFirstLigneVoid(column)
             power4[column][ligne!!] = YELLOW
         }        
     }
 
 
-    //Fonction retournant les colonnes où il est possible de jouer dans le terrain de jeu
     private fun checkWhereItIsPossibleToPlay():ArrayList<Int>{
         val tableau = ArrayList<Int>()
-        for (i in 0..6){//On vérifie les colonnes
+        for (i in 0..6){
             val ligne = getFirstLigneVoid(i)
-            if (ligne != null){//Si la colonne a un emplacement vide
-                tableau.add(i)//on l'a rajoute au tableau qui sera renvoyé
+            if (ligne != null){
+                tableau.add(i)
             }
         }
         return tableau
     }
 
-    //Vérifie si une couleur peut gagner quelque part
     private fun checkCanWin(color: Int): Int?{
-        for(column in 0..6){//on vérifie chaque colonne
+        for(column in 0..6){
             val ligne = getFirstLigneVoid(column)
-            if (ligne != null){//Si la colonne a un emplacement vide
-                power4[column][ligne] = color//On met une variable temporaire
-                if(checkWin(column,ligne)){//Si cet emplacement permet la victoire
-                    power4[column][ligne] = VOID//On enlève la variable temporaire
-                    return column//on retourne la colonne permettant la victoire
-                }else{//Si cet emplacement ne permet pas la victoire
-                    power4[column][ligne] = VOID//On enlève la variable temporaire
+            if (ligne != null){
+                power4[column][ligne] = color
+                if(checkWin(column,ligne)){
+                    power4[column][ligne] = VOID
+                    return column
+                }else{
+                    power4[column][ligne] = VOID
                 }
             }
         }
-        return null//Si aucune colonne ne permet la victoire, on ne renvoit rien
+        return null
     }
 
-    //Fonction retournant les colonnes où il est possible de jouer dans le terrain de jeu sans perdre au prochain tour
     private fun checkWhereCanPlayWithoutLosing() : ArrayList<Int>{
         val tableau = ArrayList<Int>()
-        for (i in 0..6){//on vérifie chaque colonne
+        for (i in 0..6){
             val ligne = getFirstLigneVoid(i)
-            if (ligne != null){//Si la colonne a un emplacement vide
-                power4[i][ligne] = YELLOW//On met une variable temporaire pour simuler un tour
-                val column = checkCanWin(RED)//On vérifie si le joueur peut gagner
-                if(column == null){//Si le joueur ne peut pas gagner avec cet variable temporaire
-                    tableau.add(i)//on rajoute la colonne au tableau qui sera renvoyé
+            if (ligne != null){
+                power4[i][ligne] = YELLOW
+                val column = checkCanWin(RED)
+                if(column == null){
+                    tableau.add(i)
                 }
-                power4[i][ligne] = VOID//On enlève la variable temporaire
+                power4[i][ligne] = VOID
             }
         }
         return tableau
     }
 
-    //Vérifie si l'emplacement donne la victoire
     private fun checkWin(column: Int,ligne: Int): Boolean{
-        //On n'a besoin que des jetons se trouvant à une distance de 3 de l'emplacement et qui se trouve dans le tableau
         val minC = max(column-3,0)
         val maxC = min(column+3,6)
         val minL = max(ligne-3,0)
         val maxL = min(ligne+3,5)
 
-        //vérifie les conditions de victoire pour les différentes directions
-        val numbers: IntArray = intArrayOf(0, 0, 0, 0)//Ligne,Colonne,Diagonale Haut-Bas, Diagonale Bas-Haut
+        val numbers: IntArray = intArrayOf(0, 0, 0, 0)
 
-        for(i in minC..maxC){//pour les colonnes à proximité
+        for(i in minC..maxC){
 
-            if(power4[i][ligne] == power4[column][ligne]){//On check sur la ligne le jeton
+            if(power4[i][ligne] == power4[column][ligne]){
                 numbers[0] ++
-            }else{//Si le jeton n'est pas bon
-                if(numbers[0]<4){//Si on n'a pas déjà gagné
+            }else{
+                if(numbers[0]<4){
                     numbers[0] = 0
                 }
             }
         }
 
-        for (i in -3..3){//Pour calculer les diagonales
-            if(checkIfInside(column+i,ligne+i)) {//On vérifie si les valeurs sont à l'intérieur du tableau
-                if (power4[column + i][ligne + i] == power4[column][ligne]) {//On check sur la diagonale Haut-Bas le jeton
+        for (i in -3..3){
+            if(checkIfInside(column+i,ligne+i)) {
+                if (power4[column + i][ligne + i] == power4[column][ligne]) {
                     numbers[2]++
-                } else {//Si le jeton n'est pas bon
-                    if (numbers[2] < 4) {//Si on n'a pas déjà gagné
+                } else {
+                    if (numbers[2] < 4) {
                         numbers[2] = 0
                     }
                 }
             }
-            if(checkIfInside(column+i,ligne-i)) {//On vérifie si les valeurs sont à l'intérieur du tableau
-                if (power4[column + i][ligne - i] == power4[column][ligne]) {//On check sur la diagonale Bas-Haut le jeton
+            if(checkIfInside(column+i,ligne-i)) {
+                if (power4[column + i][ligne - i] == power4[column][ligne]) {
                     numbers[3]++
-                } else {//Si le jeton n'est pas bon
-                    if (numbers[3] < 4) {//Si on n'a pas déjà gagné
+                } else {
+                    if (numbers[3] < 4) {
                         numbers[3] = 0
                     }
                 }
@@ -272,24 +288,23 @@ class Power4Activity : AppCompatActivity() {
         }
 
 
-        for(i in minL..maxL){//pour les lignes à proximité
-            if(power4[column][i] == power4[column][ligne]){//On check sur la colonne le jeton
+        for(i in minL..maxL){
+            if(power4[column][i] == power4[column][ligne]){
                 numbers[1] ++
-            }else{//Si le jeton n'est pas bon
-                if(numbers[1] < 4){//Si on n'a pas déjà gagné
+            }else{
+                if(numbers[1] < 4){
                     numbers[1] = 0
                 }
             }
         }
 
-        if(numbers.filter{it > 3 }.isNotEmpty()){//Si on a 4 jetons d'affilé dans une des directions
-            return true//On dit que cet emplacement fait gagné
+        if(numbers.any {it > 3 }){
+            return true
         }
-        return false//On dit que cet emplacement ne fait pas gagné
+        return false
     }
 
 
-    //Vérifie si l'emplacement se trouve dans le terrain de jeu
     private fun checkIfInside(column: Int, ligne: Int):Boolean{
         return (column < power4.size && column >= 0 && ligne < power4[0].size && ligne >= 0 )
     }
