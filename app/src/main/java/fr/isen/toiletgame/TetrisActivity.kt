@@ -3,6 +3,8 @@ package fr.isen.toiletgame
 import android.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.View
 import kotlinx.android.synthetic.main.activity_tetris.*
 import java.util.*
 
@@ -39,9 +41,7 @@ class TetrisActivity : AppCompatActivity() {
         colorList.add(R.drawable.lightblue)
         colorList.add(R.drawable.darkblue)
         colorList.add(R.drawable.green)
-
         initBoard()
-
         adapter = ColorAdapter(this, tetris, colorList)
         terrain.adapter = adapter
 
@@ -54,6 +54,20 @@ class TetrisActivity : AppCompatActivity() {
         Rotate.setOnClickListener {
             onRotate()
         }
+        Down.setOnTouchListener(View.OnTouchListener { _, motionEvent ->
+            when (motionEvent.action){
+                MotionEvent.ACTION_DOWN -> {
+                    timer.cancel()
+                    moveDown(300)
+                }
+                MotionEvent.ACTION_UP -> {
+                    timer.cancel()
+                    moveDown(750)
+                }
+            }
+            return@OnTouchListener true
+        })
+
         NewGame.setOnClickListener {
             onNewGame()
         }
@@ -64,8 +78,8 @@ class TetrisActivity : AppCompatActivity() {
         val alertDialog = AlertDialog.Builder(this@TetrisActivity)
         alertDialog.setTitle("Tetris")
         alertDialog.setMessage("Règles du tetris:\n" +
-                "Le but du Tetris est d'aligné les pièces qui descendent en ligne pour gagner des points.\n" +
-                "Plus il y a de ligne supprimé en même temps, meilleur est le score.\n" +
+                "Le but du Tetris est d'aligner les pièces qui descendent en ligne pour gagner des points.\n" +
+                "Plus il y a de ligne supprimée en même temps, meilleur est le score.\n" +
                 "Si une pièce ne peut pas apparaître sur l'écran, la partie est perdue"
         )
         alertDialog.setNeutralButton("Commencer la partie"){_,_ ->
@@ -88,7 +102,7 @@ class TetrisActivity : AppCompatActivity() {
 
         if(endGame){
             endGame = false
-            moveDown()
+            moveDown(750)
         }
     }
 
@@ -97,7 +111,7 @@ class TetrisActivity : AppCompatActivity() {
         super.onPause()
     }
 
-    private fun moveDown(){
+    private fun moveDown(time : Long){
         timer = Timer()
         timer.scheduleAtFixedRate(
             object : TimerTask() {
@@ -110,7 +124,7 @@ class TetrisActivity : AppCompatActivity() {
                         onMove(DOWN)
                     }
                 }
-            },0, 750
+            },0, time
         )
     }
 
