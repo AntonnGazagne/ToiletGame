@@ -102,7 +102,8 @@ class MorpionActivity : AppCompatActivity() {
             tourIa()
             nbCaseRemplies++
         }
-        auTourDe.text = "C'EST AU TOUR DE : " + user[numeroDuJoueurEnCour].nom
+        var text = getString(R.string.auTourDe, user[numeroDuJoueurEnCour].nom)
+        auTourDe.text = text
 
         plateau.forEach {
 
@@ -120,8 +121,9 @@ class MorpionActivity : AppCompatActivity() {
                         nbCaseRemplies++
                         checkEgality(nbCaseRemplies)
                     } else {
-                        auTourDe.text = user[numeroDuJoueurEnCour].nom +
-                                ", BRAVO ! Vous remportez la partie !"
+                        endgame = true
+                        text = getString(R.string.Gagnant, user[numeroDuJoueurEnCour].nom)
+                        auTourDe.text = text
                         buttonRelancer.isEnabled = true
                     }
                 }
@@ -151,7 +153,8 @@ class MorpionActivity : AppCompatActivity() {
         for(case in caseVoid){
             tableau[case] = numeroDuJoueurEnCour
             if(verification3MemeSymbole()){
-                auTourDe.text = user[numeroDuJoueurEnCour].nom + ", BRAVO ! Vous remportez la partie !"
+                val text = getString(R.string.Gagnant, user[numeroDuJoueurEnCour].nom)
+                auTourDe.text = text
                 buttonRelancer.isEnabled = true
                 rempliTableau(case)
                 endgame = true
@@ -194,10 +197,10 @@ class MorpionActivity : AppCompatActivity() {
     }
 
     private fun changeJoueur(){
-        if(numeroDuJoueurEnCour == 0){
-            numeroDuJoueurEnCour = 1
+        numeroDuJoueurEnCour = if(numeroDuJoueurEnCour == 0){
+            1
         }else{
-            numeroDuJoueurEnCour = 0
+            0
         }
     }
 

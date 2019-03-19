@@ -15,7 +15,10 @@
 
     <string name="Pendu">Pendu</string>
     <string name="Morpion">Morpion</string>
-    <string name="NoWinner">C\'est trop triste... Pas de gagnant...</string>
+    <string name="NoWinner">Egalité</string>
+
+    <string name="auTourDe">C\'EST AU TOUR DE : %1$s </string>
+    <string name="Gagnant">%1$s a remporté la partie !"</string>
 
     <string name="Yams">Yathzee</string>
     <string name="send">Envoyer</string>
