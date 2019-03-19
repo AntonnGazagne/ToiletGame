@@ -6,7 +6,8 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
 import kotlinx.android.synthetic.main.activity_tetris.*
-import java.util.*
+import java.util.Timer
+import java.util.TimerTask
 
 private val LEFT = arrayOf(0,-1)
 private val RIGHT = arrayOf(0,1)
@@ -17,7 +18,7 @@ private const val WHITE = 0
 class TetrisActivity : AppCompatActivity() {
 
     private lateinit var adapter: ColorAdapter
-    private var tetris = ArrayList<ArrayList<color>>()
+    private var tetris = ArrayList<ArrayList<Color>>()
 
     private var pieceRotation= ArrayList<ArrayList<Array<Int>>>()
     private var actualColor = -1
@@ -134,10 +135,10 @@ class TetrisActivity : AppCompatActivity() {
             tetris.add(initBoardColumns())
         }
     }
-    private fun initBoardColumns() : ArrayList<color>{
-        val array = ArrayList<color>()
+    private fun initBoardColumns() : ArrayList<Color>{
+        val array = ArrayList<Color>()
         for (i in 0..11){
-            array.add(color(WHITE, false))
+            array.add(Color(WHITE, false))
         }
         return array
     }
@@ -252,9 +253,9 @@ class TetrisActivity : AppCompatActivity() {
         while (i > 0){
             if(tetris[i].filter { it.color > WHITE }.size == 12){
                 for(j in i downTo 1){
-                    val array = ArrayList<color>()
+                    val array = ArrayList<Color>()
                     for (k in 0..11){
-                        val color= color(tetris[j-1][k].color,false)
+                        val color= Color(tetris[j-1][k].color,false)
                         array.add(color)
                     }
                     tetris[j] = array

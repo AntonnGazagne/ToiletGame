@@ -1,6 +1,6 @@
 package fr.isen.toiletgame
 
-data class color(
+data class Color(
     var color:Int,
     var isMoveable:Boolean
 )

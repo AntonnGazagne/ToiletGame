@@ -1,11 +1,9 @@
 package fr.isen.toiletgame
 
 import android.app.AlertDialog
-import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_pendu.*
@@ -58,7 +56,7 @@ class PenduActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View) {
-        var lettreFromInput: String = et_letter.text.toString().toUpperCase()
+        val lettreFromInput: String = et_letter.text.toString().toUpperCase()
         et_letter.text.clear()
 
         if (lettreFromInput.isNotEmpty() && (lettreFromInput.single() in 'a'..'z' || lettreFromInput.single() in 'A'..'Z')) {
@@ -94,11 +92,11 @@ class PenduActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    fun verifieLettreDansMot(lettre: Char, mot: String) {
+    private fun verifieLettreDansMot(lettre: Char, mot: String) {
         var i = 0
         for (letter in mot) {
             if (letter == lettre) {
-                var tv = word_container.getChildAt(i) as TextView?
+                val tv = word_container.getChildAt(i) as TextView?
                 tv?.text = letter.toString()
                 found++
             }
@@ -106,7 +104,7 @@ class PenduActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    fun afficheLettres(listOfLetters: CharArrayWriter) {
+    private fun afficheLettres(listOfLetters: CharArrayWriter) {
         var chaine = ""
         for (lettre in listOfLetters.toString()) {
             chaine += lettre.toString() + "\n"
@@ -116,7 +114,7 @@ class PenduActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    fun setImage(error: Int) {
+    private fun setImage(error: Int) {
         when(error) {
             1 ->  iv_pendu.setBackgroundResource(R.drawable.second)
             2 ->  iv_pendu.setBackgroundResource(R.drawable.third)
@@ -127,7 +125,7 @@ class PenduActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    fun creerDialog(win: Boolean) {
+    private fun creerDialog(win: Boolean) {
         val builder = AlertDialog.Builder(this@PenduActivity)
         builder.setTitle("Vous avez gagné !")
 
@@ -148,7 +146,7 @@ class PenduActivity : AppCompatActivity(), View.OnClickListener {
         builder.create().show()
     }
 
-    fun getListeMots(): ArrayList<String> {
+    private fun getListeMots(): ArrayList<String> {
 
         try {
             val buffer = BufferedReader(InputStreamReader(assets.open("pendu_liste.txt")))
@@ -164,7 +162,7 @@ class PenduActivity : AppCompatActivity(), View.OnClickListener {
         return listofWords
     }
 
-    fun generateMot(): String {
+    private fun generateMot(): String {
         listofWords = getListeMots()
         val random = Math.floor(Math.random() * listofWords.size)
         val mot = listofWords.get(random.toInt()).trim()

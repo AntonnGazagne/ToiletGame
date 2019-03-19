@@ -26,9 +26,6 @@ class Power4Activity : AppCompatActivity() {
             arrayOf(0,0,0,0,0,0),
             arrayOf(0,0,0,0,0,0)
         )
-
-
-
     private var ia = true
     private var joueurActuelle = RED
     private var endGame = false
@@ -124,15 +121,7 @@ class Power4Activity : AppCompatActivity() {
                 if(ia){
                     onPlayIA()
                 }else{
-                    if(joueurActuelle == RED){
-                        joueurActuelle = YELLOW
-                        Joueur.setText(R.string.JoueurJaune)
-                        Joueur.setTextColor(Color.parseColor("#FFC73B"))
-                    }else{
-                        joueurActuelle = RED
-                        Joueur.setText(R.string.JoueurRouge)
-                        Joueur.setTextColor(Color.parseColor("#FF0000"))
-                    }
+                    changePlayer()
                 }
                 if(checkWhereItIsPossibleToPlay().isEmpty()){
                     finDePartie("Egalité")
@@ -146,7 +135,19 @@ class Power4Activity : AppCompatActivity() {
             }
         }
 
-        chechIfUpdate()
+        checkIfUpdate()
+    }
+
+    private fun changePlayer(){
+        if(joueurActuelle == RED){
+            joueurActuelle = YELLOW
+            Joueur.setText(R.string.JoueurJaune)
+            Joueur.setTextColor(Color.parseColor("#FFC73B"))
+        }else{
+            joueurActuelle = RED
+            Joueur.setText(R.string.JoueurRouge)
+            Joueur.setTextColor(Color.parseColor("#FF0000"))
+        }
     }
 
     private fun onNewGame(){
@@ -158,10 +159,10 @@ class Power4Activity : AppCompatActivity() {
                 endGame = false
             }
         }
-        chechIfUpdate()
+        checkIfUpdate()
     }
 
-    private fun chechIfUpdate(){
+    private fun checkIfUpdate(){
         for(adapter in adapters){
             adapter.notifyDataSetChanged()
         }
@@ -255,16 +256,8 @@ class Power4Activity : AppCompatActivity() {
 
         val numbers: IntArray = intArrayOf(0, 0, 0, 0)
 
-        for(i in minC..maxC){
-
-            if(power4[i][ligne] == power4[column][ligne]){
-                numbers[0] ++
-            }else{
-                if(numbers[0]<4){
-                    numbers[0] = 0
-                }
-            }
-        }
+        numbers[0] = checkHorizontal(minC,maxC,column,ligne)
+        numbers[1] = checkVertical(minL,maxL,column,ligne)
 
         for (i in -3..3){
             if(checkIfInside(column+i,ligne+i)) {
@@ -287,21 +280,39 @@ class Power4Activity : AppCompatActivity() {
             }
         }
 
-
-        for(i in minL..maxL){
-            if(power4[column][i] == power4[column][ligne]){
-                numbers[1] ++
-            }else{
-                if(numbers[1] < 4){
-                    numbers[1] = 0
-                }
-            }
-        }
-
         if(numbers.any {it > 3 }){
             return true
         }
         return false
+    }
+
+    private fun checkHorizontal(minC : Int, maxC: Int,column: Int,ligne: Int) : Int{
+        var number = 0
+        for(i in minC..maxC){
+
+            if(power4[i][ligne] == power4[column][ligne]){
+                number ++
+            }else{
+                if(number<4){
+                    number = 0
+                }
+            }
+        }
+        return number
+    }
+    
+    private fun checkVertical(minL : Int, maxL: Int,column: Int,ligne: Int) : Int{
+        var number = 0
+        for(i in minL..maxL){
+            if(power4[column][i] == power4[column][ligne]){
+                number ++
+            }else{
+                if(number < 4){
+                    number = 0
+                }
+            }
+        }
+        return number
     }
 
 
